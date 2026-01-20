@@ -3,9 +3,9 @@ import { Setup } from './components/World/Setup'
 import { Floor } from './components/World/Floor'
 import { SanthalHut } from './components/World/SanthalHut'
 import { Player, ControlsMap } from './components/Player/Player'
-import { Effects } from './components/World/Effects'
+// import { Effects } from './components/World/Effects'
 import { Vegetation } from './components/World/Vegetation'
-import { Vehicle } from './components/Vehicle/Vehicle'
+// import { Vehicle } from './components/Vehicle/Vehicle'
 import { SoundManager } from './components/Audio/SoundManager'
 import { KeyboardControls } from '@react-three/drei'
 import { useGame } from './stores/useGame'
@@ -13,7 +13,7 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-import { Target } from './components/World/Target'
+// import { Target } from './components/World/Target'
 import { Enemy } from './components/World/Enemy'
 
 // Impact Spark System (Moved to World Space)
@@ -27,7 +27,7 @@ const SparkParticles = () => {
     const particles = useRef<{ position: THREE.Vector3, velocity: THREE.Vector3, life: number }[]>([])
     const meshRef = useRef<THREE.InstancedMesh>(null)
     const dummy = new THREE.Object3D()
-    const lastImpact = useRef<string>("")
+    // const lastImpact = useRef<string>("")
 
     useEffect(() => {
         if (impactPosition) {

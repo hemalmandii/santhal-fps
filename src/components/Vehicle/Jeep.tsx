@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { RigidBody, CuboidCollider, RapierRigidBody } from '@react-three/rapier'
+import { RigidBody, RapierRigidBody } from '@react-three/rapier'
 import { useKeyboardControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { useGame } from '../../stores/useGame'

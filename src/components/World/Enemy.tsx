@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { RigidBody, CapsuleCollider, CuboidCollider, RapierRigidBody } from '@react-three/rapier'
+import { RigidBody, CapsuleCollider, RapierRigidBody } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -35,7 +35,7 @@ export const Enemy = ({ position = [0, 2, 0] }: { position?: [number, number, nu
         setTimeout(() => setHit(false), 100)
     }
 
-    useFrame((state, delta) => {
+    useFrame(() => {
         // Flash red on hit
         if (hit) {
             skinMaterial.color.set('red')

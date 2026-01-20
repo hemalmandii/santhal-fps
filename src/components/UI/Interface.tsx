@@ -1,19 +1,19 @@
 import { useGame } from '../../stores/useGame'
 
-const ModeDisplay = () => {
-    const { controlMode } = useGame()
-    return <span className={controlMode === 'VEHICLE' ? 'text-green-400' : 'text-blue-400'}>{controlMode}</span>
-}
+// const ModeDisplay = () => {
+//     const { controlMode } = useGame()
+//     return <span className={controlMode === 'VEHICLE' ? 'text-green-400' : 'text-blue-400'}>{controlMode}</span>
+// }
 
-const Speedometer = () => {
-    // Placeholder since we don't have vehicle speed in store yet, but this prompts user they SHOULD be moving
-    const { controlMode } = useGame()
-    if (controlMode !== 'VEHICLE') return <span>0</span>
-    return <span>--</span>
-}
+// const Speedometer = () => {
+//     // Placeholder since we don't have vehicle speed in store yet, but this prompts user they SHOULD be moving
+//     const { controlMode } = useGame()
+//     if (controlMode !== 'VEHICLE') return <span>0</span>
+//     return <span>--</span>
+// }
 
 export const Interface = () => {
-    const { flash, ammo, totalAmmo } = useGame()
+    const { flash, ammo } = useGame()
 
     return (
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none">

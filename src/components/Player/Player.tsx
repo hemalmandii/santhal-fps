@@ -2,12 +2,12 @@ import * as THREE from 'three'
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody, CapsuleCollider, RapierRigidBody } from '@react-three/rapier'
-import { KeyboardControls, useKeyboardControls, PointerLockControls } from '@react-three/drei'
+import { useKeyboardControls, PointerLockControls } from '@react-three/drei'
 import { Weapon } from './Weapon'
 
 
 // Controls map
-type Controls = 'forward' | 'backward' | 'left' | 'right' | 'jump'
+// type Controls = 'forward' | 'backward' | 'left' | 'right' | 'jump'
 
 import { useGame } from '../../stores/useGame'
 
@@ -24,7 +24,7 @@ export const ControlsMap = [
 
 export const Player = () => {
     const body = useRef<RapierRigidBody>(null)
-    const [subscribeKeys, getKeys] = useKeyboardControls() // Get both subscribe and get
+    const [, getKeys] = useKeyboardControls() // Get both subscribe and get
     const { triggerFlash } = useGame()
 
     const direction = new THREE.Vector3()

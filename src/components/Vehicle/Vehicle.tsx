@@ -13,10 +13,10 @@ const WHEEL_RADIUS = 0.4
 
 export const Vehicle = ({ position = [0, 2, 0] }: { position?: [number, number, number] }) => {
     const chassisRef = useRef<RapierRigidBody>(null)
-    const { controlMode, setControlMode, setVehiclePosition } = useGame()
+    const { controlMode, setVehiclePosition } = useGame()
     const [, getKeys] = useKeyboardControls()
 
-    useFrame((state, delta) => {
+    useFrame((_state, delta) => {
         if (!chassisRef.current) return
 
         // Update Global Position for Camera
@@ -24,13 +24,15 @@ export const Vehicle = ({ position = [0, 2, 0] }: { position?: [number, number, 
         setVehiclePosition([t.x, t.y, t.z])
 
         // Input
-        const { forward, backward, left, right, interact } = getKeys()
+        const { forward, backward, left, right } = getKeys()
 
         // 1. Vehicle Logic
         if (controlMode === 'VEHICLE') {
             // Acceleration (Impulse)
             const speed = 150 * delta
             const direction = new THREE.Vector3(0, 0, 0)
+            // ... (middle content omitted for brevity, I will try to target specific blocks to avoid huge replacement or use multi_replace if needed, but here a simple replace of the top part and then the bottom usage is needed. actually I can just do 2 chunks)
+
             if (forward) direction.z += speed
             if (backward) direction.z -= speed
 
@@ -219,10 +221,10 @@ export const Vehicle = ({ position = [0, 2, 0] }: { position?: [number, number, 
                 </group>
 
                 {/* --- Wheels (Functional) --- */}
-                <group position={[-0.9, 0, 1.2]}><Wheel radius={WHEEL_RADIUS} leftSide={true} /></group>
-                <group position={[0.9, 0, 1.2]}><Wheel radius={WHEEL_RADIUS} leftSide={false} /></group>
-                <group position={[-0.9, 0, -1.2]}><Wheel radius={WHEEL_RADIUS} leftSide={true} /></group>
-                <group position={[0.9, 0, -1.2]}><Wheel radius={WHEEL_RADIUS} leftSide={false} /></group>
+                <group position={[-0.9, 0, 1.2]}><Wheel radius={WHEEL_RADIUS} /></group>
+                <group position={[0.9, 0, 1.2]}><Wheel radius={WHEEL_RADIUS} /></group>
+                <group position={[-0.9, 0, -1.2]}><Wheel radius={WHEEL_RADIUS} /></group>
+                <group position={[0.9, 0, -1.2]}><Wheel radius={WHEEL_RADIUS} /></group>
 
             </RigidBody>
         </group>

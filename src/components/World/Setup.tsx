@@ -1,4 +1,4 @@
-import { Environment, SoftShadows, Sky, Cloud } from '@react-three/drei'
+// import { Environment, SoftShadows, Sky, Cloud } from '@react-three/drei'
 
 export const Setup = () => {
     return (

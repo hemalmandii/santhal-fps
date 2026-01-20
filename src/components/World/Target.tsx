@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { RigidBody, CuboidCollider } from '@react-three/rapier'
+import { RigidBody } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -10,7 +10,7 @@ export const Target = ({ position = [0, 2, 0] }: { position?: [number, number, n
     const [destroyed, setDestroyed] = useState(false)
 
     // Flash red on hit
-    useFrame((state, delta) => {
+    useFrame(() => {
         if (!meshRef.current || destroyed) return
 
         if (hit) {

@@ -1,14 +1,14 @@
 import { useRef, useState, useEffect } from 'react'
-import { useFrame, useThree, createPortal } from '@react-three/fiber'
-import { useKeyboardControls, Hud, PerspectiveCamera } from '@react-three/drei'
+import { useFrame, useThree } from '@react-three/fiber'
+import { Hud, PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
-import { RapierRigidBody, useRapier } from '@react-three/rapier'
+// import { RapierRigidBody, useRapier } from '@react-three/rapier'
 import { useGame } from '../../stores/useGame'
 
 export const Weapon = () => {
     const weaponRef = useRef<THREE.Group>(null)
     const { camera, scene } = useThree()
-    const { rapier, world } = useRapier()
+    // const { rapier, world } = useRapier()
     const { shoot: consumeAmmo, reload, triggerImpact } = useGame()
 
     // Recoil State

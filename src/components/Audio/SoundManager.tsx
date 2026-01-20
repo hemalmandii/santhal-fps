@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useGame } from '../../stores/useGame'
-import { useKeyboardControls } from '@react-three/drei'
+// import { useKeyboardControls } from '@react-three/drei'
 
 // Simple Sound Synth to avoid external asset dependencies
 const playSynthTone = (freq: number, type: OscillatorType, duration: number) => {

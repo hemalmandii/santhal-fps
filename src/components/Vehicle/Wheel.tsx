@@ -1,8 +1,5 @@
-import { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
-
 // Placeholder for a real wheel model, using basic cylinders for now but structured for replacement
-export const Wheel = ({ radius = 0.35, leftSide = false }) => {
+export const Wheel = ({ radius = 0.35 }) => {
     return (
         <group rotation={[0, 0, Math.PI / 2]}>
             <group rotation={[0, Math.PI / 2, 0]}>
