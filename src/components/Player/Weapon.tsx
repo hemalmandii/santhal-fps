@@ -4,12 +4,14 @@ import { Hud, PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
 // import { RapierRigidBody, useRapier } from '@react-three/rapier'
 import { useGame } from '../../stores/useGame'
+import { useMobileInput } from '../../stores/useMobileInput' // Import
 
 export const Weapon = () => {
     const weaponRef = useRef<THREE.Group>(null)
     const { camera, scene } = useThree()
     // const { rapier, world } = useRapier()
     const { shoot: consumeAmmo, reload, triggerImpact } = useGame()
+    const { shoot: mobileShoot } = useMobileInput() // consume mobile trigger
 
     // Recoil State
     const [recoil, setRecoil] = useState(0)
@@ -178,6 +180,13 @@ export const Weapon = () => {
         shootRef.current = shoot
         reloadRef.current = triggerReload
     }, [shoot, triggerReload])
+
+    // Mobile Shoot Listener
+    useEffect(() => {
+        if (mobileShoot) {
+            shootRef.current()
+        }
+    }, [mobileShoot])
 
     useEffect(() => {
         const handleMouseDown = (e: MouseEvent) => {

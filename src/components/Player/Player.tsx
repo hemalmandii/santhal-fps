@@ -10,6 +10,7 @@ import { Weapon } from './Weapon'
 // type Controls = 'forward' | 'backward' | 'left' | 'right' | 'jump'
 
 import { useGame } from '../../stores/useGame'
+import { useMobileInput } from '../../stores/useMobileInput'
 
 // Controls map update to include Interaction
 export const ControlsMap = [
@@ -26,17 +27,63 @@ export const Player = () => {
     const body = useRef<RapierRigidBody>(null)
     const [, getKeys] = useKeyboardControls() // Get both subscribe and get
     const { triggerFlash } = useGame()
+    const mobileInput = useMobileInput()
 
     const direction = new THREE.Vector3()
     const frontVector = new THREE.Vector3()
     const sideVector = new THREE.Vector3()
 
+    // Mobile Look Logic
+    useFrame((state) => {
+        if (mobileInput.lookDelta.x !== 0 || mobileInput.lookDelta.y !== 0) {
+            const sensitivity = 0.005
+            const camera = state.camera
+
+            // Euler rotation
+            const euler = new THREE.Euler(0, 0, 0, 'YXZ')
+            euler.setFromQuaternion(camera.quaternion)
+
+            euler.y -= mobileInput.lookDelta.x * sensitivity
+            euler.x -= mobileInput.lookDelta.y * sensitivity
+
+            // Clamp pitch
+            euler.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, euler.x))
+
+            camera.quaternion.setFromEuler(euler)
+
+            // Reset delta
+            mobileInput.resetLookDelta()
+        }
+    })
+
     // Interaction Logic (Event Based to prevent debounce issues)
     useFrame((state) => {
         if (!body.current) return
 
+        // Mobile Shoot Auto-Trigger logic or just passing it down?
+        // Weapon component likely handles shooting. 
+        // We probably need to pass 'shoot' prop or Weapon listens to store?
+        // Let's check Weapon.tsx if we can. 
+        // For now, Player logic is mostly movement.
+
+        // ... existing logic ...
+
         // CHARACTER MODE Logic (Always Active)
         const { forward, backward, left, right, jump } = getKeys()
+
+        // Merge Mobile Inputs
+        const mForward = mobileInput.forward
+        const mBackward = mobileInput.backward
+        const mLeft = mobileInput.left
+        const mRight = mobileInput.right
+        const mJump = mobileInput.jump
+
+        const finalForward = forward || mForward
+        const finalBackward = backward || mBackward
+        const finalLeft = left || mLeft
+        const finalRight = right || mRight
+        const finalJump = jump || mJump
+
         const velocity = body.current.linvel()
         const translation = body.current.translation()
 
@@ -51,14 +98,14 @@ export const Player = () => {
         state.camera.position.set(translation.x, translation.y + 0.5, translation.z)
 
         // Movement
-        frontVector.set(0, 0, Number(backward) - Number(forward))
-        sideVector.set(Number(left) - Number(right), 0, 0)
+        frontVector.set(0, 0, Number(finalBackward) - Number(finalForward))
+        sideVector.set(Number(finalLeft) - Number(finalRight), 0, 0)
         direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(5).applyEuler(state.camera.rotation)
 
         body.current.setLinvel({ x: direction.x, y: velocity.y, z: direction.z }, true)
 
         // Jump
-        if (jump && translation.y < 1.0) {
+        if (finalJump && translation.y < 1.0) {
             body.current.applyImpulse({ x: 0, y: 5, z: 0 }, true)
         }
     })
