@@ -5,6 +5,11 @@ type ControlMode = 'CHARACTER' | 'VEHICLE'
 interface GameState {
     controlMode: ControlMode
     setControlMode: (mode: ControlMode) => void
+
+    // Game Flow
+    gameStatus: 'MENU' | 'PLAYING'
+    startGame: () => void
+
     vehiclePosition: [number, number, number] | null
     setVehiclePosition: (pos: [number, number, number]) => void
     flash: boolean
@@ -24,6 +29,10 @@ interface GameState {
 export const useGame = create<GameState>((set, get) => ({
     controlMode: 'CHARACTER',
     setControlMode: (mode) => set({ controlMode: mode }),
+
+    gameStatus: 'MENU',
+    startGame: () => set({ gameStatus: 'PLAYING' }),
+
     vehiclePosition: null, // Track where the vehicle is for camera
     setVehiclePosition: (pos) => set({ vehiclePosition: pos }),
 
